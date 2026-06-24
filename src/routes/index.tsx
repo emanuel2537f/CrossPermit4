@@ -97,7 +97,7 @@ const destinations: Destination[] = [
   },
 ];
 
-function Index() {
+export default function Index() {
   useEffect(() => {
     const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const io = new IntersectionObserver(
