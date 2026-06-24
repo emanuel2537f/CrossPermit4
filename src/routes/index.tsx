@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 
 import heroImg from "@/assets/hero-mountains.jpg";
 import thethImg from "@/assets/dest-theth.jpg";
@@ -123,6 +123,8 @@ export default function Index() {
       <About />
       <Destinations />
       <Permits />
+      <FAQ />
+      <Contact />
       <Footer />
     </div>
   );
@@ -143,10 +145,77 @@ function Logo() {
 }
 
 function Nav() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuRendered, setIsMenuRendered] = useState(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const menuLinks = [
+    { number: "01", label: "About us", href: "#about" },
+    { number: "02", label: "Destinations", href: "#destinations" },
+    { number: "03", label: "Permits", href: "#permits" },
+    { number: "04", label: "FAQ", href: "#faq" },
+    { number: "05", label: "Contact", href: "#contact" },
+  ];
+  const menuAnimationDuration = 520;
+  const menuStaggerDelay = 55;
+  const menuUnmountDelay = menuAnimationDuration + (menuLinks.length - 1) * menuStaggerDelay;
+
+  const openMenu = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+
+    setIsMenuRendered(true);
+    window.requestAnimationFrame(() => setIsMenuOpen(true));
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+    }
+
+    setIsMenuOpen(false);
+    closeTimerRef.current = setTimeout(() => {
+      setIsMenuRendered(false);
+      closeTimerRef.current = null;
+    }, menuUnmountDelay);
+  }, [menuUnmountDelay]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMenuRendered) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeMenu, isMenuRendered]);
+
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
-      <div className="container-x flex items-center justify-between py-6">
-        <a href="#top" className="flex items-center gap-2 text-parchment">
+    <header className="absolute inset-x-0 top-0 z-50">
+      <div className="container-x relative z-10 flex items-center justify-between py-6">
+        <a
+          href="#top"
+          className="flex items-center gap-2 text-parchment"
+          onClick={closeMenu}
+        >
           <Logo />
           <span className="font-display text-xl tracking-tight">CrossPermit</span>
         </a>
@@ -160,14 +229,95 @@ function Nav() {
           <a href="#permits" className="hover:text-parchment">
             Permits
           </a>
+          <a href="#faq" className="hover:text-parchment">
+            FAQ
+          </a>
         </nav>
-        <a
-          href="#permits"
-          className="hidden rounded-full border border-parchment/40 px-5 py-2 text-sm text-parchment transition-colors hover:bg-parchment hover:text-ink md:inline-flex"
-        >
-          Apply for a permit
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="#contact"
+            className="hidden rounded-full border border-parchment/40 px-5 py-2 text-sm text-parchment transition-colors hover:bg-parchment hover:text-ink md:inline-flex"
+          >
+            Contact Us
+          </a>
+          <button
+            type="button"
+            className="relative grid h-11 w-11 place-items-center rounded-full border border-parchment/40 text-parchment transition-colors hover:bg-parchment hover:text-ink md:hidden"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            onClick={isMenuOpen ? closeMenu : openMenu}
+          >
+            <Menu
+              className={`absolute h-5 w-5 transition-all duration-300 ${
+                isMenuOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
+              }`}
+              strokeWidth={1.8}
+              aria-hidden
+            />
+            <X
+              className={`absolute h-5 w-5 transition-all duration-300 ${
+                isMenuOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
+              }`}
+              strokeWidth={1.8}
+              aria-hidden
+            />
+          </button>
+        </div>
       </div>
+
+      {isMenuRendered ? (
+        <div
+          className="fixed inset-0 z-0 overflow-y-auto bg-[#0b1b11] text-parchment md:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site menu"
+        >
+          <div className="container-x flex min-h-[100svh] flex-col pb-8 pt-28 sm:pt-32">
+            <nav className="flex-1">
+              {menuLinks.map((link, i) => {
+                const animationDelay = isMenuOpen
+                  ? i * menuStaggerDelay
+                  : (menuLinks.length - 1 - i) * menuStaggerDelay;
+
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`group grid grid-cols-[2.5rem_1fr_2rem] items-center gap-4 border-b border-parchment/15 py-5 transition-[opacity,transform,color] duration-[520ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:grid-cols-[3rem_1fr_2.5rem] sm:py-6 ${
+                      isMenuOpen ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+                    } hover:text-ember`}
+                    style={{ transitionDelay: `${animationDelay}ms` }}
+                    onClick={closeMenu}
+                  >
+                    <span className="font-mono text-sm text-parchment/40">{link.number}</span>
+                    <span className="font-display text-4xl font-normal leading-[1.05] tracking-normal sm:text-5xl">
+                      {link.label}
+                    </span>
+                    <ArrowUpRight
+                      className="h-6 w-6 text-parchment/65 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-ember"
+                      strokeWidth={1.6}
+                      aria-hidden
+                    />
+                  </a>
+                );
+              })}
+            </nav>
+
+            <div className="border-t border-parchment/15 pt-8">
+              <div className="font-mono text-[11px] uppercase tracking-[0.32em] text-parchment/45">
+                Get in touch
+              </div>
+              <a
+                href="mailto:info@crosspermit.com"
+                className="mt-5 inline-flex items-center gap-4 text-base font-semibold text-ember transition-colors hover:text-parchment sm:text-lg"
+              >
+                <Mail className="h-5 w-5" strokeWidth={1.8} aria-hidden />
+                info@crosspermit.com
+              </a>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }
@@ -510,14 +660,14 @@ function PermitContactBlock() {
   return (
     <>
       <a
-        href="mailto:permits@yourwebsite.com?subject=Green%20Border%20Crossing%20Permit%20Request"
+        href="mailto:info@crosspermit.com?subject=Green%20Border%20Crossing%20Permit%20Request"
         className="group block"
       >
         <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-stone">
           Send all documents to
         </div>
         <div className="mt-3 font-display text-xl text-ink sm:text-2xl">
-          permits@yourwebsite.com
+          info@crosspermit.com
         </div>
         <div className="mt-5 inline-flex items-center gap-4 rounded-full border-0 bg-parchment px-8 py-4 text-base font-semibold text-ink shadow-[0_18px_35px_-24px_rgba(0,0,0,0.5)] transition-all group-hover:-translate-y-0.5 group-hover:bg-white">
           <Mail className="h-5 w-5" strokeWidth={1.8} aria-hidden />
@@ -657,6 +807,220 @@ function Permits() {
   );
 }
 
+function FAQ() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const faqs = [
+    {
+      question: "What is a Green Border Crossing Permit?",
+      answer:
+        "It is an official approval required for specific mountain routes that cross designated border areas. Requirements depend on the route, dates, traveler details, and the relevant authorities.",
+    },
+    {
+      question: "How early should I request a permit?",
+      answer:
+        "We recommend sending your information several days before your planned crossing date. Processing time can vary by season, route, and authority approval requirements.",
+    },
+    {
+      question: "What documents do I need to send?",
+      answer:
+        "You should send your travel information, passport or ID details, planned route, travel dates, number of travelers, and a copy of your passport or identification document.",
+    },
+    {
+      question: "Can you help with route planning too?",
+      answer:
+        "Yes. Alongside permit guidance, we can help you understand route options, border crossing points, local conditions, and preparation details for alpine travel.",
+    },
+    {
+      question: "How will I receive confirmation?",
+      answer:
+        "After the permit process is approved, confirmation and any further instructions will be sent to you by email.",
+    },
+  ];
+
+  return (
+    <section id="faq" className="relative overflow-hidden border-t border-ink/10 py-20 md:py-32">
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink/[0.035] to-transparent" />
+      <div className="container-x relative">
+        <div className="grid gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-4" data-reveal="left">
+            <div className="eyebrow mb-4">04 - FAQ</div>
+            <h2 className="font-display text-[2.5rem] leading-[1.05] sm:text-5xl md:text-6xl">
+              Frequently
+              <br />
+              <em className="text-ember">Asked Questions</em>
+            </h2>
+            <p className="mt-5 max-w-sm text-base leading-relaxed text-ink/70 sm:text-lg">
+              Quick answers before you prepare your documents, choose a route, or contact our team.
+            </p>
+          </div>
+
+          <div className="md:col-span-7 md:col-start-6" data-reveal>
+            <div className="border-y border-ink/20">
+              {faqs.map((faq, i) => {
+                const isOpen = openFaq === i;
+
+                return (
+                  <div key={faq.question} className="border-b border-ink/15 py-6 last:border-b-0">
+                    <button
+                      type="button"
+                      className="grid w-full cursor-pointer grid-cols-[2.25rem_1fr_2rem] items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-4 focus-visible:ring-offset-parchment"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-panel-${i}`}
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                    >
+                      <span className="font-display text-xl leading-none text-ember">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-lg leading-snug text-ink transition-colors hover:text-ember sm:text-xl">
+                        {faq.question}
+                      </span>
+                      <span
+                        className={`grid h-8 w-8 place-items-center rounded-full border text-lg transition-colors duration-300 ${
+                          isOpen
+                            ? "border-ember text-ember"
+                            : "border-ink/20 text-ink"
+                        }`}
+                      >
+                        <span
+                          className={`transition-transform duration-300 ${
+                            isOpen ? "rotate-45" : "rotate-0"
+                          }`}
+                        >
+                          +
+                        </span>
+                      </span>
+                    </button>
+                    <div
+                      id={`faq-panel-${i}`}
+                      aria-hidden={!isOpen}
+                      className={`grid overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="min-h-0">
+                        <p className="mt-4 max-w-2xl pl-[3.25rem] text-sm leading-relaxed text-ink/70 sm:pl-[3.75rem] sm:text-base">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") || "");
+    const email = String(formData.get("email") || "");
+    const message = String(formData.get("message") || "");
+    const body = [
+      `Full name: ${name}`,
+      `Email address: ${email}`,
+      "",
+      "Message:",
+      message,
+    ].join("\n");
+
+    window.location.href = `mailto:info@crosspermit.com?subject=${encodeURIComponent(
+      "CrossPermit contact request",
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
+  return (
+    <section id="contact" className="bg-background px-4 py-16 sm:px-6 md:py-24">
+      <div
+        className="mx-auto max-w-7xl overflow-hidden rounded-[1.75rem] bg-[#0b1b11] px-6 py-12 text-parchment shadow-[0_24px_70px_-45px_rgba(11,27,17,0.75)] sm:px-10 md:px-12 md:py-16 lg:px-16"
+        data-reveal
+      >
+        <div className="grid gap-12 md:grid-cols-12 md:items-start md:gap-16">
+          <div className="md:col-span-5">
+            <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-parchment/45">
+              05 - Contact
+            </div>
+            <h2 className="mt-6 font-display text-[2.4rem] leading-[1.05] text-parchment sm:text-5xl md:text-6xl">
+              Still have
+              <br />
+              <em className="text-ember">Questions?</em>
+            </h2>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-parchment/65 sm:text-lg">
+              Let's talk and clear everything up. Send us your details and our team will get back
+              to you shortly.
+            </p>
+
+            <div className="mt-10 border-l border-parchment/20 pl-6">
+              <a
+                href="mailto:info@crosspermit.com"
+                className="inline-flex items-center gap-4 text-sm font-semibold text-ember transition-colors hover:text-parchment sm:text-base"
+              >
+                <Mail className="h-5 w-5" strokeWidth={1.8} aria-hidden />
+                info@crosspermit.com
+              </a>
+              <p className="mt-4 text-sm leading-relaxed text-parchment/45">
+                Reply within ~48 hours, Monday to Saturday, CET.
+              </p>
+            </div>
+          </div>
+
+          <form className="space-y-5 md:col-span-6 md:col-start-7" onSubmit={handleContactSubmit}>
+            <label className="sr-only" htmlFor="contact-name">
+              Full Name
+            </label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              required
+              placeholder="Full Name"
+              className="h-16 w-full rounded-2xl border border-parchment/20 bg-transparent px-6 text-base text-parchment outline-none transition-colors placeholder:text-parchment/45 focus:border-ember"
+            />
+
+            <label className="sr-only" htmlFor="contact-email">
+              Email Address
+            </label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              required
+              placeholder="Email Address"
+              className="h-16 w-full rounded-2xl border border-parchment/20 bg-transparent px-6 text-base text-parchment outline-none transition-colors placeholder:text-parchment/45 focus:border-ember"
+            />
+
+            <label className="sr-only" htmlFor="contact-message">
+              Message
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              required
+              placeholder="Message"
+              rows={6}
+              className="min-h-44 w-full resize-none rounded-2xl border border-parchment/20 bg-transparent px-6 py-5 text-base text-parchment outline-none transition-colors placeholder:text-parchment/45 focus:border-ember"
+            />
+
+            <button
+              type="submit"
+              className="inline-flex items-center gap-3 rounded-full bg-parchment px-7 py-4 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/70 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0b1b11]"
+            >
+              Send Message
+              <ArrowUpRight className="h-4 w-4" strokeWidth={2} aria-hidden />
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink text-parchment">
@@ -694,10 +1058,10 @@ function Footer() {
               Green border permits, route guidance, and remote alpine experiences made simple.
             </p>
             <a
-              href="mailto:permits@yourwebsite.com"
+              href="mailto:info@crosspermit.com"
               className="mt-6 inline-flex items-center gap-2 font-display text-lg text-ember transition-colors hover:text-parchment"
             >
-              permits@yourwebsite.com
+              info@crosspermit.com
             </a>
           </div>
 
