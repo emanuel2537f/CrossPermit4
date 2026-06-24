@@ -78,15 +78,41 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Bjeshkë — Cross-Border Mountain Permits, Albania & the Balkans" },
-      { name: "description", content: "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans." },
-      { property: "og:title", content: "Bjeshkë — Cross-Border Mountain Permits, Albania & the Balkans" },
-      { property: "og:description", content: "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans." },
+      {
+        name: "description",
+        content:
+          "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans.",
+      },
+      {
+        property: "og:title",
+        content: "Bjeshkë — Cross-Border Mountain Permits, Albania & the Balkans",
+      },
+      {
+        property: "og:description",
+        content:
+          "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Bjeshkë — Cross-Border Mountain Permits, Albania & the Balkans" },
-      { name: "twitter:description", content: "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b97dae61-0024-4a04-995f-aad80c3cc97a/id-preview-59dcef0e--2ede8b22-ebe3-4b53-936e-8700d18625d1.lovable.app-1782242060108.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b97dae61-0024-4a04-995f-aad80c3cc97a/id-preview-59dcef0e--2ede8b22-ebe3-4b53-936e-8700d18625d1.lovable.app-1782242060108.png" },
+      {
+        name: "twitter:title",
+        content: "Bjeshkë — Cross-Border Mountain Permits, Albania & the Balkans",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b97dae61-0024-4a04-995f-aad80c3cc97a/id-preview-59dcef0e--2ede8b22-ebe3-4b53-936e-8700d18625d1.lovable.app-1782242060108.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b97dae61-0024-4a04-995f-aad80c3cc97a/id-preview-59dcef0e--2ede8b22-ebe3-4b53-936e-8700d18625d1.lovable.app-1782242060108.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

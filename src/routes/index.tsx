@@ -345,9 +345,21 @@ function About() {
           className="space-y-6 text-lg leading-relaxed text-ink/80 md:col-span-7 md:col-start-6"
           data-reveal
         >
-          <p>{renderAnimatedText("We help travelers explore some of the most spectacular hiking destinations in the Balkans while simplifying the process of obtaining green border crossing permits where required.")}</p>
-          <p>{renderAnimatedText("Our mission is to make remote mountain experiences more accessible, organized and compliant with local regulations. Discover routes, understand permit requirements, submit applications, and prepare safely for unforgettable journeys across Albania's mountain landscapes.")}</p>
-          <p className="text-ink/60">{renderAnimatedText("Whether you're hiking independently or planning a group expedition, we provide a smooth and reliable experience from application to approval.")}</p>
+          <p>
+            {renderAnimatedText(
+              "We help travelers explore some of the most spectacular hiking destinations in the Balkans while simplifying the process of obtaining green border crossing permits where required.",
+            )}
+          </p>
+          <p>
+            {renderAnimatedText(
+              "Our mission is to make remote mountain experiences more accessible, organized and compliant with local regulations. Discover routes, understand permit requirements, submit applications, and prepare safely for unforgettable journeys across Albania's mountain landscapes.",
+            )}
+          </p>
+          <p className="text-ink/60">
+            {renderAnimatedText(
+              "Whether you're hiking independently or planning a group expedition, we provide a smooth and reliable experience from application to approval.",
+            )}
+          </p>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2">
             {[
