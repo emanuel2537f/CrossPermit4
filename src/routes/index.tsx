@@ -40,7 +40,7 @@ const destinations: Destination[] = [
       "Alpine hiking routes",
     ],
     image: thethImg,
-    imageAlt: "Theth village and Albanian Alps hiking route",
+    imageAlt: "Theth village hiking trail in the Albanian Alps - CrossPermit",
   },
   {
     id: "valbona",
@@ -55,7 +55,7 @@ const destinations: Destination[] = [
       "Cross-border hiking access",
     ],
     image: valbonaImg,
-    imageAlt: "Valbona Valley river and Albanian Alps trekking landscape",
+    imageAlt: "Valbona National Park hiking route in Albania - CrossPermit",
   },
   {
     id: "rugova",
@@ -70,7 +70,7 @@ const destinations: Destination[] = [
       "Outdoor activities",
     ],
     image: rugovaImg,
-    imageAlt: "Rugova Canyon mountain hiking route near Peja Kosovo",
+    imageAlt: "Rugova Canyon hiking trail in Kosovo - CrossPermit",
   },
   {
     id: "kukes",
@@ -80,7 +80,7 @@ const destinations: Destination[] = [
       "Kukës connects northern Albania with important mountain regions and serves as a gateway for nature tourism and cross-border adventures. It offers access to remote landscapes and protected areas.",
     highlights: ["Alpine landscapes", "Traditional culture", "Access to mountain routes"],
     image: kukesImg,
-    imageAlt: "Kukes northern Albania mountain gateway and cross-border hiking routes",
+    imageAlt: "Kukes northern Albania cross-border hiking route - CrossPermit",
   },
   {
     id: "diber",
@@ -90,7 +90,7 @@ const destinations: Destination[] = [
       "Dibër is known for its mountainous terrain, traditional villages, and outdoor experiences. It is one of the entrances toward protected mountain areas and alpine routes.",
     highlights: ["Mountain tourism", "Traditional cuisine", "Scenic valleys"],
     image: diberImg,
-    imageAlt: "Diber eastern Albania highlands and scenic mountain valleys",
+    imageAlt: "Diber eastern Albania mountain hiking route - CrossPermit",
   },
   {
     id: "korab",
@@ -100,7 +100,7 @@ const destinations: Destination[] = [
       "Korab is the highest mountain in Albania and one of the most impressive destinations for experienced hikers. The surrounding protected landscape includes alpine meadows, forests, and panoramic viewpoints.",
     highlights: ["Highest peak in Albania", "Guided trekking", "Protected natural landscape"],
     image: korabImg,
-    imageAlt: "Mount Korab trekking route on the Albania and North Macedonia border",
+    imageAlt: "Mount Korab trekking route - CrossPermit",
   },
 ];
 
@@ -334,7 +334,7 @@ function Hero() {
     <section id="top" className="relative isolate min-h-[100svh] overflow-hidden">
       <img
         src={heroImg}
-        alt="Misty peaks of the Albanian Alps at dawn"
+        alt="Balkan mountain ridgelines at dawn - CrossPermit"
         width={1920}
         height={1280}
         className="animate-ken-burns absolute inset-0 -z-10 h-full w-full object-cover"
