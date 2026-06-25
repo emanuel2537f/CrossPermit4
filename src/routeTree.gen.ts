@@ -10,33 +10,120 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuidesIndexRouteImport } from './routes/guides/index'
+import { Route as GuidesThethToValbonaGuideRouteImport } from './routes/guides/theth-to-valbona-guide'
+import { Route as GuidesRugovaCanyonHikingGuideRouteImport } from './routes/guides/rugova-canyon-hiking-guide'
+import { Route as GuidesPeaksOfTheBalkansPermitRouteImport } from './routes/guides/peaks-of-the-balkans-permit'
+import { Route as GuidesMountKorabTrekkingGuideRouteImport } from './routes/guides/mount-korab-trekking-guide'
+import { Route as GuidesGreenBorderPermitAlbaniaRouteImport } from './routes/guides/green-border-permit-albania'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesThethToValbonaGuideRoute =
+  GuidesThethToValbonaGuideRouteImport.update({
+    id: '/guides/theth-to-valbona-guide',
+    path: '/guides/theth-to-valbona-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GuidesRugovaCanyonHikingGuideRoute =
+  GuidesRugovaCanyonHikingGuideRouteImport.update({
+    id: '/guides/rugova-canyon-hiking-guide',
+    path: '/guides/rugova-canyon-hiking-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GuidesPeaksOfTheBalkansPermitRoute =
+  GuidesPeaksOfTheBalkansPermitRouteImport.update({
+    id: '/guides/peaks-of-the-balkans-permit',
+    path: '/guides/peaks-of-the-balkans-permit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GuidesMountKorabTrekkingGuideRoute =
+  GuidesMountKorabTrekkingGuideRouteImport.update({
+    id: '/guides/mount-korab-trekking-guide',
+    path: '/guides/mount-korab-trekking-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GuidesGreenBorderPermitAlbaniaRoute =
+  GuidesGreenBorderPermitAlbaniaRouteImport.update({
+    id: '/guides/green-border-permit-albania',
+    path: '/guides/green-border-permit-albania',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/guides/green-border-permit-albania': typeof GuidesGreenBorderPermitAlbaniaRoute
+  '/guides/mount-korab-trekking-guide': typeof GuidesMountKorabTrekkingGuideRoute
+  '/guides/peaks-of-the-balkans-permit': typeof GuidesPeaksOfTheBalkansPermitRoute
+  '/guides/rugova-canyon-hiking-guide': typeof GuidesRugovaCanyonHikingGuideRoute
+  '/guides/theth-to-valbona-guide': typeof GuidesThethToValbonaGuideRoute
+  '/guides/': typeof GuidesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/guides/green-border-permit-albania': typeof GuidesGreenBorderPermitAlbaniaRoute
+  '/guides/mount-korab-trekking-guide': typeof GuidesMountKorabTrekkingGuideRoute
+  '/guides/peaks-of-the-balkans-permit': typeof GuidesPeaksOfTheBalkansPermitRoute
+  '/guides/rugova-canyon-hiking-guide': typeof GuidesRugovaCanyonHikingGuideRoute
+  '/guides/theth-to-valbona-guide': typeof GuidesThethToValbonaGuideRoute
+  '/guides': typeof GuidesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/guides/green-border-permit-albania': typeof GuidesGreenBorderPermitAlbaniaRoute
+  '/guides/mount-korab-trekking-guide': typeof GuidesMountKorabTrekkingGuideRoute
+  '/guides/peaks-of-the-balkans-permit': typeof GuidesPeaksOfTheBalkansPermitRoute
+  '/guides/rugova-canyon-hiking-guide': typeof GuidesRugovaCanyonHikingGuideRoute
+  '/guides/theth-to-valbona-guide': typeof GuidesThethToValbonaGuideRoute
+  '/guides/': typeof GuidesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/guides/green-border-permit-albania'
+    | '/guides/mount-korab-trekking-guide'
+    | '/guides/peaks-of-the-balkans-permit'
+    | '/guides/rugova-canyon-hiking-guide'
+    | '/guides/theth-to-valbona-guide'
+    | '/guides/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/guides/green-border-permit-albania'
+    | '/guides/mount-korab-trekking-guide'
+    | '/guides/peaks-of-the-balkans-permit'
+    | '/guides/rugova-canyon-hiking-guide'
+    | '/guides/theth-to-valbona-guide'
+    | '/guides'
+  id:
+    | '__root__'
+    | '/'
+    | '/guides/green-border-permit-albania'
+    | '/guides/mount-korab-trekking-guide'
+    | '/guides/peaks-of-the-balkans-permit'
+    | '/guides/rugova-canyon-hiking-guide'
+    | '/guides/theth-to-valbona-guide'
+    | '/guides/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GuidesGreenBorderPermitAlbaniaRoute: typeof GuidesGreenBorderPermitAlbaniaRoute
+  GuidesMountKorabTrekkingGuideRoute: typeof GuidesMountKorabTrekkingGuideRoute
+  GuidesPeaksOfTheBalkansPermitRoute: typeof GuidesPeaksOfTheBalkansPermitRoute
+  GuidesRugovaCanyonHikingGuideRoute: typeof GuidesRugovaCanyonHikingGuideRoute
+  GuidesThethToValbonaGuideRoute: typeof GuidesThethToValbonaGuideRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +135,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/theth-to-valbona-guide': {
+      id: '/guides/theth-to-valbona-guide'
+      path: '/guides/theth-to-valbona-guide'
+      fullPath: '/guides/theth-to-valbona-guide'
+      preLoaderRoute: typeof GuidesThethToValbonaGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/rugova-canyon-hiking-guide': {
+      id: '/guides/rugova-canyon-hiking-guide'
+      path: '/guides/rugova-canyon-hiking-guide'
+      fullPath: '/guides/rugova-canyon-hiking-guide'
+      preLoaderRoute: typeof GuidesRugovaCanyonHikingGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/peaks-of-the-balkans-permit': {
+      id: '/guides/peaks-of-the-balkans-permit'
+      path: '/guides/peaks-of-the-balkans-permit'
+      fullPath: '/guides/peaks-of-the-balkans-permit'
+      preLoaderRoute: typeof GuidesPeaksOfTheBalkansPermitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/mount-korab-trekking-guide': {
+      id: '/guides/mount-korab-trekking-guide'
+      path: '/guides/mount-korab-trekking-guide'
+      fullPath: '/guides/mount-korab-trekking-guide'
+      preLoaderRoute: typeof GuidesMountKorabTrekkingGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/green-border-permit-albania': {
+      id: '/guides/green-border-permit-albania'
+      path: '/guides/green-border-permit-albania'
+      fullPath: '/guides/green-border-permit-albania'
+      preLoaderRoute: typeof GuidesGreenBorderPermitAlbaniaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GuidesGreenBorderPermitAlbaniaRoute: GuidesGreenBorderPermitAlbaniaRoute,
+  GuidesMountKorabTrekkingGuideRoute: GuidesMountKorabTrekkingGuideRoute,
+  GuidesPeaksOfTheBalkansPermitRoute: GuidesPeaksOfTheBalkansPermitRoute,
+  GuidesRugovaCanyonHikingGuideRoute: GuidesRugovaCanyonHikingGuideRoute,
+  GuidesThethToValbonaGuideRoute: GuidesThethToValbonaGuideRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

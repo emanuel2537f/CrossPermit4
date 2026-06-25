@@ -716,7 +716,7 @@ function PermitContactBlock() {
   );
 }
 
-function TrustSignals({ dark = false }: { dark?: boolean }) {
+function TrustSignals() {
   const signals = [
     "Response within 48h",
     "Permit assistance",
@@ -725,19 +725,9 @@ function TrustSignals({ dark = false }: { dark?: boolean }) {
   ];
 
   return (
-    <ul className={`mt-8 grid gap-3 sm:grid-cols-2 ${dark ? "text-parchment" : "text-ink"}`}>
+    <ul className="sr-only">
       {signals.map((signal) => (
-        <li
-          key={signal}
-          className={`flex items-center gap-3 rounded-full border px-4 py-3 text-sm ${
-            dark
-              ? "border-parchment/15 bg-parchment/[0.04] text-parchment/75"
-              : "border-ink/10 bg-ink/[0.03] text-ink/70"
-          }`}
-        >
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ember" />
-          {signal}
-        </li>
+        <li key={signal}>{signal}</li>
       ))}
     </ul>
   );
@@ -1008,7 +998,7 @@ function Contact() {
               </p>
             </div>
 
-            <TrustSignals dark />
+            <TrustSignals />
           </div>
 
           <form className="space-y-5 md:col-span-6 md:col-start-7" onSubmit={handleContactSubmit}>
