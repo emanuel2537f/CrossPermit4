@@ -12,6 +12,94 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
+const siteUrl = "https://crosspermit.com/";
+const siteName = "CrossPermit";
+const siteDescription =
+  "Get help with green border crossing permits, route guidance, and cross-border mountain travel across Albania, Kosovo, Montenegro, and the Balkans.";
+const siteKeywords =
+  "green border crossing permit Albania, Albania border crossing permit, Peaks of the Balkans permit, cross-border hiking Albania, Balkan mountain travel permits, Theth Valbona permit, Rugova hiking permit, Mount Korab trekking permit";
+const ogImageUrl = "https://crosspermit.com/og-image.png";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: siteName,
+      url: siteUrl,
+      logo: "https://crosspermit.com/favicon.svg",
+      image: ogImageUrl,
+      email: "info@crosspermit.com",
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "info@crosspermit.com",
+        contactType: "customer support",
+        availableLanguage: ["English", "Albanian"],
+      },
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}#green-border-permit-service`,
+      name: "Green Border Crossing Permit Assistance",
+      serviceType: "Travel permit assistance and mountain route guidance",
+      provider: {
+        "@id": `${siteUrl}#organization`,
+      },
+      areaServed: ["Albania", "Kosovo", "Montenegro", "North Macedonia", "Balkans"],
+      description:
+        "Support for green border crossing permit Albania requests, Albania border crossing permit guidance, Peaks of the Balkans permit planning, and Balkan mountain travel permits.",
+      url: siteUrl,
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${siteUrl}#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What is a Green Border Crossing Permit?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "It is an official approval required for specific mountain routes that cross designated border areas. Requirements depend on the route, dates, traveler details, and the relevant authorities.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How early should I request a permit?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "We recommend sending your information several days before your planned crossing date. Processing time can vary by season, route, and authority approval requirements.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What documents do I need to send?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "You should send your travel information, passport or ID details, planned route, travel dates, number of travelers, and a copy of your passport or identification document.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can you help with route planning too?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Alongside permit guidance, we can help you understand route options, border crossing points, local conditions, and preparation details for alpine travel.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How will I receive confirmation?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "After the permit process is approved, confirmation and any further instructions will be sent to you by email.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -77,46 +165,50 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Crosspremit" },
+      { title: "CrossPermit | Green Border Crossing Permits in Albania & the Balkans" },
       {
         name: "description",
-        content:
-          "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans.",
+        content: siteDescription,
       },
+      { name: "keywords", content: siteKeywords },
       {
         property: "og:title",
-        content: "Crosspremit",
+        content: "CrossPermit | Green Border Crossing Permits in Albania & the Balkans",
       },
       {
         property: "og:description",
-        content:
-          "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans.",
+        content: siteDescription,
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: siteUrl },
+      { property: "og:site_name", content: siteName },
+      { property: "og:image", content: ogImageUrl },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content: "CrossPermit green border crossing permits for Albania and the Balkans",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Crosspremit",
+        content: "CrossPermit | Green Border Crossing Permits in Albania & the Balkans",
       },
       {
         name: "twitter:description",
-        content:
-          "Your trusted gateway for green border crossing permits and cross-border mountain adventures across Albania and the Balkans.",
+        content: siteDescription,
       },
+      { name: "twitter:image", content: ogImageUrl },
       {
-        property: "og:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b97dae61-0024-4a04-995f-aad80c3cc97a/id-preview-59dcef0e--2ede8b22-ebe3-4b53-936e-8700d18625d1.lovable.app-1782242060108.png",
+        name: "twitter:image:alt",
+        content: "CrossPermit green border crossing permits for Albania and the Balkans",
       },
-      {
-        name: "twitter:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b97dae61-0024-4a04-995f-aad80c3cc97a/id-preview-59dcef0e--2ede8b22-ebe3-4b53-936e-8700d18625d1.lovable.app-1782242060108.png",
-      },
+      { "script:ld+json": structuredData },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "canonical", href: siteUrl },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

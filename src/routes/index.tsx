@@ -23,6 +23,7 @@ type Destination = {
   blurb: string;
   highlights: string[];
   image: string;
+  imageAlt: string;
 };
 
 const destinations: Destination[] = [
@@ -39,6 +40,7 @@ const destinations: Destination[] = [
       "Alpine hiking routes",
     ],
     image: thethImg,
+    imageAlt: "Theth village and Albanian Alps hiking route",
   },
   {
     id: "valbona",
@@ -53,6 +55,7 @@ const destinations: Destination[] = [
       "Cross-border hiking access",
     ],
     image: valbonaImg,
+    imageAlt: "Valbona Valley river and Albanian Alps trekking landscape",
   },
   {
     id: "rugova",
@@ -67,6 +70,7 @@ const destinations: Destination[] = [
       "Outdoor activities",
     ],
     image: rugovaImg,
+    imageAlt: "Rugova Canyon mountain hiking route near Peja Kosovo",
   },
   {
     id: "kukes",
@@ -76,6 +80,7 @@ const destinations: Destination[] = [
       "Kukës connects northern Albania with important mountain regions and serves as a gateway for nature tourism and cross-border adventures. It offers access to remote landscapes and protected areas.",
     highlights: ["Alpine landscapes", "Traditional culture", "Access to mountain routes"],
     image: kukesImg,
+    imageAlt: "Kukes northern Albania mountain gateway and cross-border hiking routes",
   },
   {
     id: "diber",
@@ -85,6 +90,7 @@ const destinations: Destination[] = [
       "Dibër is known for its mountainous terrain, traditional villages, and outdoor experiences. It is one of the entrances toward protected mountain areas and alpine routes.",
     highlights: ["Mountain tourism", "Traditional cuisine", "Scenic valleys"],
     image: diberImg,
+    imageAlt: "Diber eastern Albania highlands and scenic mountain valleys",
   },
   {
     id: "korab",
@@ -94,6 +100,7 @@ const destinations: Destination[] = [
       "Korab is the highest mountain in Albania and one of the most impressive destinations for experienced hikers. The surrounding protected landscape includes alpine meadows, forests, and panoramic viewpoints.",
     highlights: ["Highest peak in Albania", "Guided trekking", "Protected natural landscape"],
     image: korabImg,
+    imageAlt: "Mount Korab trekking route on the Albania and North Macedonia border",
   },
 ];
 
@@ -355,7 +362,8 @@ function Hero() {
             className="animate-rise mt-8 max-w-xl text-base leading-relaxed text-parchment/80 sm:text-lg"
             style={{ ["--rise-delay" as string]: "500ms" }}
           >
-            Welcome to your trusted gateway for cross-border mountain adventures in Albania and the
+            Welcome to your trusted gateway for cross-border mountain adventures, green border
+            crossing permit Albania requests, and Albania border crossing permit guidance across the
             Balkans.
           </p>
           <div
@@ -497,7 +505,7 @@ function About() {
         >
           <p>
             {renderAnimatedText(
-              "We help travelers explore some of the most spectacular hiking destinations in the Balkans while simplifying the process of obtaining green border crossing permits where required.",
+              "We help travelers explore some of the most spectacular hiking destinations in the Balkans while simplifying the process of obtaining green border crossing permits where required, including support for cross-border hiking Albania routes.",
             )}
           </p>
           <p>
@@ -507,7 +515,7 @@ function About() {
           </p>
           <p className="text-ink/60">
             {renderAnimatedText(
-              "Whether you're hiking independently or planning a group expedition, we provide a smooth and reliable experience from application to approval.",
+              "Whether you're hiking independently or planning a group expedition, we provide a smooth and reliable experience from application to approval for Balkan mountain travel permits.",
             )}
           </p>
 
@@ -605,7 +613,9 @@ function Destinations() {
           </div>
           <p className="max-w-sm text-parchment/70" data-reveal>
             From limestone towers to alpine meadows, these are the regions our permits and
-            itineraries are built around.
+            itineraries are built around, including Peaks of the Balkans permit planning, Theth
+            Valbona permit routes, Rugova hiking permit questions, and Mount Korab trekking permit
+            guidance.
           </p>
         </div>
 
@@ -620,7 +630,7 @@ function Destinations() {
               <div className="relative aspect-[4/5] overflow-hidden">
                 <img
                   src={d.image}
-                  alt={d.name}
+                  alt={d.imageAlt}
                   width={1200}
                   height={1500}
                   loading="lazy"
@@ -686,6 +696,8 @@ function PermitContactBlock() {
         approved, you will receive confirmation and further instructions by email.
       </p>
 
+      <TrustSignals />
+
       <div className="mt-8 flex gap-4 rounded-xl border border-ember/30 bg-ember/[0.06] p-5">
         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-ember/40 font-display text-sm italic text-ember">
           i
@@ -701,6 +713,33 @@ function PermitContactBlock() {
         </div>
       </div>
     </>
+  );
+}
+
+function TrustSignals({ dark = false }: { dark?: boolean }) {
+  const signals = [
+    "Response within 48h",
+    "Permit assistance",
+    "Route guidance",
+    "Official application support",
+  ];
+
+  return (
+    <ul className={`mt-8 grid gap-3 sm:grid-cols-2 ${dark ? "text-parchment" : "text-ink"}`}>
+      {signals.map((signal) => (
+        <li
+          key={signal}
+          className={`flex items-center gap-3 rounded-full border px-4 py-3 text-sm ${
+            dark
+              ? "border-parchment/15 bg-parchment/[0.04] text-parchment/75"
+              : "border-ink/10 bg-ink/[0.03] text-ink/70"
+          }`}
+        >
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ember" />
+          {signal}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -748,7 +787,7 @@ function Permits() {
               Planning to cross designated green border mountain routes?
               <br />
               To request your Green Border Crossing Permit, please send your travel information by
-              email.
+              email. We help clarify Albania border crossing permit requirements before you travel.
             </p>
 
             <div className="mt-8 hidden md:block">
@@ -968,6 +1007,8 @@ function Contact() {
                 Reply within ~48 hours, Monday to Saturday, CET.
               </p>
             </div>
+
+            <TrustSignals dark />
           </div>
 
           <form className="space-y-5 md:col-span-6 md:col-start-7" onSubmit={handleContactSubmit}>
