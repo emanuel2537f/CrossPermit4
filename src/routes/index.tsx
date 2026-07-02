@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 
 import heroImg from "@/assets/hero-mountains.jpg";
+import logoIcon from "@/assets/logo-crosspermit-icon.png";
 import thethImg from "@/assets/dest-theth.jpg";
 import valbonaImg from "@/assets/dest-valbona.jpg";
 import rugovaImg from "@/assets/dest-rugova.jpg";
@@ -139,15 +140,12 @@ export default function Index() {
 
 function Logo() {
   return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
-      <path
-        d="M2 22 L9 9 L13 16 L17 11 L24 22 Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <circle cx="19" cy="6" r="1.6" fill="currentColor" />
-    </svg>
+    <img
+      src={logoIcon}
+      alt=""
+      className="h-8 w-14 shrink-0 object-contain"
+      aria-hidden="true"
+    />
   );
 }
 
