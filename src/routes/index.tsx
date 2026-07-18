@@ -12,6 +12,7 @@ import rugovaImg from "@/assets/dest-rugova.jpg";
 import korabImg from "@/assets/dest-korab.jpg";
 import kukesImg from "@/assets/dest-kukes.jpg";
 import diberImg from "@/assets/dest-diber.jpg";
+import { WhatsAppButton } from "@/components/site/whatsapp-button";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -134,6 +135,7 @@ export default function Index() {
       <FAQ />
       <Contact />
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 }
