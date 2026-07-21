@@ -1140,7 +1140,18 @@ function Footer() {
 
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-parchment/10 pt-8 text-xs text-parchment/50 md:flex-row md:items-center">
           <div>© {new Date().getFullYear()} CrossPermit — Cross-border mountain travel.</div>
-          <div className="font-mono uppercase tracking-[0.22em]">Explore · Travel · Experience</div>
+          <div className="font-display">
+            Powered by EAI DEV ·{" "}
+            <a
+              href="https://wa.me/355692168749?text=I%E2%80%99m%20contacting%20you%20through%20CrossPermit.%20I%E2%80%99d%20like%20a%20website%20quote."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ember transition-colors hover:text-parchment"
+              aria-label="Contact EAI DEV on WhatsApp at +355 69 216 8749"
+            >
+              Contact here
+            </a>
+          </div>
           <a
             href="#top"
             className="inline-flex items-center gap-1 font-mono uppercase tracking-[0.22em] transition-colors hover:text-ember"
